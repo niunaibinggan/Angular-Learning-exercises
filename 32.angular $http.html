@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Examples</title>
+		<script src="jquery-3.1.1.js"></script>
+		<script src="angular.js"></script>
+<script>
+var m1 = angular.module('myApp',[]);
+m1.controller('A',['$scope','$http','$timeout',function($scope,$http,$timeout){
+	var timer = null;
+	$scope.data = [];
+	$timeout.cancel(timer);
+	$scope.change = function(name){
+		timer = $timerout(function(){
+			$http({
+				method : 'JSONP',  // 采用jsonp的方式
+				url : 'http://..........?wd = '+ name + '&cb=JSON_CALLBACK'   // 数据传输的地址
+			}).success(function(data){
+				$scope.name = data.s  // 返回值在data.s下面
+			}).error(function(err){
+				console.log(err);
+			});
+		},500);
+	}
+		
+}])
+</script>
+	</head>
+	<body ng-controller="A">
+		<input type="text" ng-model="name" ng-keyup="change(name)">
+		<input type="button" value="搜索" ng-click = 'change(name)'>
+		<ul>
+			<li ng-repeat="list in data">{{ list }}</li>
+		</ul>
+	</body>
+</html>

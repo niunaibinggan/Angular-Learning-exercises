@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Examples</title>
+		<style>
+		</style>
+		<script src="angular.js"></script>
+		<script src="https://cdn.bootcss.com/angular.js/1.2.9/angular-route.min.js"></script>
+<script>
+var m1 = angular.module('myApp',['ngRoute']);
+m1.config(['$routeProvider',function($routeProvider){
+	$routeProvider
+	.when('/a',{
+		template : '<p>导航一下的内容</p>'
+	})
+	.when('/b',{
+		template : '<p>导航二下的内容</p>'
+	})
+	.when('/c',{
+		template : '<p>导航三下的内容</p>'
+	})
+}])
+m1.controller('A',['$scope',function($scope){
+}]);
+
+</script>
+	</head>
+<body>
+	<div ng-controller="A">
+		<a href="#a">导航一</a>
+		<a href="#b">导航二</a>
+		<a href="#c">导航三</a>
+	
+	</div>
+</body>
+</html>

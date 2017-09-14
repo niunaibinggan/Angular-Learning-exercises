@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html ng-app>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Examples</title>
+		<script src="js/angular.js"></script>
+		<script>
+			function Action($scope){
+				$scope.phone = {
+					price : 30,
+					number : 1,
+					fare : 15
+				}
+				$scope.sum = function(){
+					return $scope.phone.price * $scope.phone.number;
+				}
+				$scope.$watch($scope.sum,function(newVal){
+					return $scope.phone.fare = newVal > 500 ? 0 : 15;
+				},true)
+			}
+		</script>
+	</head>
+	<body>
+		<div ng-controller = "Action">
+			<p>价格:<input type="text" ng-model = "phone.price"></p>
+			<p>数量:<input type="text" ng-model = "phone.number"></p>
+			<p>金额:{{sum() | currency:'￥'}}</p>
+			<p>运费:{{ phone.fare | currency:'￥' }}</p>
+			<p>总价:{{ sum() + phone.fare | currency:'￥'}}</p>
+		</div>
+	</body>
+</html>

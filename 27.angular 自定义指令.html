@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Examples</title>
+		<script src="js/angular.js"></script>
+		<style>
+			input.ng-valid{border:1px solid green;}
+			input.ng-invalid{border:1px solid red;}
+		</style>
+	<script>
+var m1 = angular.module('myApp',[]);
+m1.directive('hello',function(){
+	return {
+		restrict : 'AECM',
+		template : '<div>明天你好</div>',
+		replace : true
+	}
+})
+	</script>
+	</head>
+	<body>
+		<hello></hello>
+		<div hello></div>
+		<div class="hello"></div>
+		<!-- directive:hello -->
+	</body>
+</html>

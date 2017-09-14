@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Examples</title>
+		<script src="jquery-3.1.1.js"></script>
+		<script src="angular.js"></script>
+<style>
+	div{width:100px;height: 100px;background: red;position: absolute;}
+</style>
+	<script>
+	var m1 = angular.module('myApp',[]);
+	m1.directive('myDrag',function(){
+		return {
+			restrict : 'A',
+			link :function(scope,element,attr){
+				var disX = 0;
+				var disY = 0;
+				// attr.myDrag 本应返回的类型是string，angular.equals将string类型转化为Boolean类型
+				attr.myDrag = angular.equals(attr.myDrag,'true');
+				element.on('mousedown',function(ev){
+					var This = this;
+					disX = ev.pageX - $(this).offset().left;
+					disY = ev.pageY - $(this).offset().top;
+
+					if(attr.myDrag){
+						var $line = $('<div>');
+						$line.css({
+							width:$(this).outerWidth(),
+							heigth:$(this).outerHeight,
+							 position:'absolute',
+							 left:$(this).offset().left-1,
+							 top:$(this).offset().top-1,
+							 border : '1px dashed #000',
+							 background : 'none'
+						});
+						$('body').append($line);
+					}
+
+					$(document).on('mousemove',function(ev){
+						if(attr.myDrag){
+							$($line).css({'left':ev.pageX - disX-1, 'top':ev.pageY - disY-1});
+						}else{
+							$(This).css({'left':ev.pageX - disX, 'top':ev.pageY - disY});
+						}	
+					});
+					$(document).on('mouseup',function(){
+						if(attr.myDrag){
+							$(This).css({'left':$line.offset().left+1, 'top':$line.offset().top+1});
+							$line.remove();
+						}
+						$(document).off();
+					});
+					return false;
+				})
+			}
+		}	
+	});
+	m1.controller('A',['$scope',function($scope){
+	}])
+	</script>
+	</head>
+	<body ng-controller="A">
+		<div my-drag="false"></div>
+	</body>
+</html>

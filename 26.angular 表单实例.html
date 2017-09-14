@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Examples</title>
+		<script src="js/angular.js"></script>
+		<style>
+			input.ng-valid{border:1px solid green;}
+			input.ng-invalid{border:1px solid red;}
+		</style>
+	<script>
+var m1 = angular.module('myApp',[]);
+m1.controller('A',['$scope',function($scope){
+	$scope.verify = {
+		initial:'default',
+		dataList : [
+			{ name : 'default', tips :'请输入用户名'},
+			{ name : 'required', tips :'用户名不能为空'},
+			{ name : 'pattern', tips :'用户名必须为字母'},
+			{ name : 'pass', tips :'√'}
+		],
+		change : function(err){
+			console.log(err);
+			for(var attr in err){
+				if(err[attr] == true){
+					this.initial = attr ;
+					return
+				}
+			}
+			this.initial = 'pass';
+		}
+	};
+	$scope.verifytwo = {
+		initial:'default',
+		dataList : [
+			{ name : 'default', tips :'请输入密码'},
+			{ name : 'required', tips :'密码不能为空'},
+			{ name : 'minlength', tips :'密码不能少于六位'},
+			{ name : 'pass', tips :'√'}
+		],
+		change : function(err){
+			for(var attr in err){
+				if(err[attr]  == true){
+					this.initial = attr;
+					return;
+				}
+				this.initial = 'pass';
+			}
+		}
+	};
+}]);
+
+	</script>
+	</head>
+	<body>
+	<div ng-controller = 'A'>
+	<form name="myForm">
+		<div>
+			<label>用户名:</label>
+			<input type="text" name='myText' ng-model="verify.name" required ng-pattern="/^[a-zA-Z]+$/" ng-blur = 'verify.change(myForm.myText.$error)'>
+			<span ng-repeat="re in verify.dataList |filter : verify.initial">{{ re.tips }}</span>
+		</div>
+		<br>  
+		<div>
+			<label>密码:</label>
+			<input type="password" name="myPassword" ng-model ="verifytwo.name" required ng-minlength="6" ng-blur = "verifytwo.change(myForm.myPassword.$error)">
+			<span ng-repeat="re in verifytwo.dataList | filter : verifytwo.initial">{{ re.tips }}</span>
+		</div>  
+	</form>
+	</div>
+	</body>
+</html>

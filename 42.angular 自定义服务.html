@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Examples</title>
+		<style>
+		</style>
+		<script src="angular.js"></script>
+<script>
+/*var m1 = angular.module('myApp',[]);
+m1.factory('myRanndomNum',function(){
+	return function(num1,num2){
+		return Math.random()*(num2-num1)+num1;
+	}
+})
+m1.controller('A',['$scope','myRanndomNum',function($scope,myRanndomNum){
+	console.log(myRanndomNum(0,8));
+}]);*/
+var m1 = angular.module('myApp',[]);
+m1.provider('myRanndomNum',function(){
+	return {
+		bOn : false,
+		int : function(b){
+			if(b){
+				this.bOn = true;
+			}else{
+				this.bOn = false;
+			}
+		},
+		$get : function(){
+			var This = this;
+			return function(num1,num2){
+				return This.bOn ? Math.round(Math.random()*(num2-num1)+num1):Math.random()*(num2-num1)+num1;
+			}
+		}				
+	}
+})
+m1.config(['myRanndomNumProvider',function(myRanndomNumProvider){
+	 myRanndomNumProvider.int(true);
+}]);
+m1.controller('A',['$scope','myRanndomNum',function($scope,myRanndomNum){
+	console.log(myRanndomNum(0,8));
+}]);
+/*var m1 = angular.module('myApp',[]);
+m1.provider('myServe',function(){
+	return {
+		$get : function(){
+			return {
+				name : 'hello',
+				show : function(){
+					return this.name+':anjular.js';
+				}
+			}
+		}
+	}
+})
+m1.controller('A',['$scope','myServe',function($scope,myServe){
+	console.log(myServe.show());
+}]);*/
+</script>
+	</head>
+<body>
+	<div ng-controller="A"></div>
+</body>
+</html>

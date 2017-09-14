@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Examples</title>
+		<script src="jquery-3.1.1.js"></script>
+		<script src="angular.js"></script>
+<script>
+var m1 = angular.module('myApp',[]);
+m1.directive('hello',function(){
+	return {
+		restrict : 'E',
+		replace : true,
+		transclude : true,    // 默认的情况下是false，变成true以后，指令就可以嵌套指令了
+		controller : function($scope){
+			this.name = "replace";   // 看成对象的方式，在其他地方也可以找到这个属性
+		},
+		template : '<div ng-transclude>hello word<h1></h1></div>'
+		// ng-transclude 指令嵌套指令，
+	    //<div>hello word<h1 ng-transclude></h1></div> 显示的结果就是<div>hello word<h1 ng-transclude><strong>hi word</strong></h1></div>
+	    //<div ng-transclude>hello word<h1></h1></div> 显示结果就是<div ng-transclude><strong>hi word</strong></div>
+	}
+});
+m1.directive('hi',function(){
+	return {
+		restrict : 'E',
+		replace : true,
+		require : "?^hello",   
+		// ？容错处理，找不到不会报错，返回一个undefined
+		// ^ 寻找得个指令的父级，一般和?连用
+		template : '<strong>hi word</strong>',
+		link : function(scope,element,attr,reController){
+			console.log(reController.name); // reController 所要依赖的controller
+		}
+	}	
+});
+</script>
+	</head>
+	<body>
+		<hello>
+			<hi></hi>
+		</hello>
+	</body>
+</html>

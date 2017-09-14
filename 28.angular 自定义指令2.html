@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Examples</title>
+		<script src="angular.js"></script>
+		<style>
+			input.active{
+				background: red;
+			}
+			.box div{
+				width:400px;
+				height: 200px;
+				border:1px solid #000;
+				display: none;
+				margin-top:20px;
+			}
+			.box div.show{
+				display: block;
+			}
+		</style>
+	<script>
+	var m1 = angular.module('myApp',[]);
+	m1.directive('myHello',function(){
+		return {
+			restrict : 'E',
+			replace : true,
+			scope : {   
+				// {} 隔离作用域，不会向外部找数据  
+				// scope ： true 是独立作用域，不受到其他影响
+				myId : '@',     // @绑定策略,就是绑定普通的字符串
+				myName : '=',   // =绑定父级下的变量
+				myFn : '&'      // &绑定父级下的函数
+			},
+			controller : ['$scope',function($scope){
+				// 针对自定义属性而设置的，里面的数据共享
+				$scope.name = "hello";   
+			}],
+			template : '<div class="box" id={{myId}}">\
+							<input type="button" value="1" class="active">\
+							<input type="button" value="2" ng-click="myFn({num:888})">\
+							<input type="button" value="3">\
+							<div class="show">{{myName}}</div>\
+							<div>22222</div>\
+							<div>33333</div>\
+						</div>'
+		}	
+	});
+	m1.controller('A',['$scope',function($scope){
+		$scope.name = 'hi';
+		$scope.B = function(n){
+			alert(n);
+		}
+	}])
+	</script>
+	</head>
+	<body ng-controller="A">
+		<my-hello my-id = "box1" my-name="name" my-fn="B(num)"></my-hello>
+		<my-hello my-id = "box2" my-name="name" my-fn="B(num)"></my-hello>
+	</body>
+</html>

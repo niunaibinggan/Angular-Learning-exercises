@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Examples</title>
+		<script src="js/angular.js"></script>
+		<script>
+			var m1 = angular.module('myApp1',[]);
+			m1.controller('A',['$scope',function($scope){
+				$scope.name = 'hello';
+			}])
+
+			var m2 = angular.module('myApp2',[]);
+			m2.controller('B',['$scope',function($scope){
+				$scope.name = 'world';
+			}])
+
+			
+				var aDiv = document.getElementsByTagName('div');
+				angular.bootstrap(aDiv[0],['myApp1']);
+				angular.bootstrap(aDiv[1],['myApp2']);
+			
+			
+		</script>
+	</head>
+	<body>
+		<div ng-controller = 'A'>
+			<p>{{name}}</p>
+		</div>
+		<div ng-controller = 'B'>
+			<p>{{name}}</p>
+		</div>
+	</body>
+</html>

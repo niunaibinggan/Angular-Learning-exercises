@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html ng-app>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Examples</title>
+		<script src="js/angular.js"></script>
+		<script>
+			function Action($scope,$rootScope){
+				$scope.name = "hello";
+				//$scope.age="20"
+				$rootScope.age = "30";
+			}
+			function Bbb($scope){
+				$scope.name = "hello2";
+			}
+		</script>
+	</head>
+	<body>
+		<div ng-controller="Action">
+			<p>{{name}}</p>
+			<div ng-controller="Bbb">
+				<p>{{name}}</p>
+				<p>{{age}}</p>
+			</div>
+		</div>
+			
+	</body>
+</html>

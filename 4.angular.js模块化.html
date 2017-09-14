@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html ng-app='MyApp'>  //ng-app = "规定从哪个模块开始初始化"
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Examples</title>
+		<script src="js/angular.js"></script>
+		<script>
+			var m1 = angular.module('MyApp',[]); 
+			//angular.moduel('模块的名称',[需要依赖哪些模块])
+			m1.controller('A',['$scope',function($scope){  
+			//m1下有一个controller方法('函数名称',function($scope){});
+				$scope.name = "你好";
+			}]);
+			m1.controller('B',['$scope',function($scope){
+				$scope.name = "明天你好";
+			}])
+		</script>
+	</head>
+	<body>
+		<div ng-controller = 'A'>
+			<p>{{name}}</p>
+		</div>
+		<div ng-controller = 'B'>
+			<p>{{name}}</p>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html ng-app>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Examples</title>
+		<script src="js/angular.js"></script>
+		<script>
+			/*var str = {"name":"hi","age":"20"}
+			var json = angular.fromJson(str);
+			console.log(json);*/
+			var json = {name : 'hi',age:20}
+			var str = angular.toJson(json,true);
+			console.log(str);
+		</script>
+	</head>
+	<body>
+		
+	</body>
+</html>

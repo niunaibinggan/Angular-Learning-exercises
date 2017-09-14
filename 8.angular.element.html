@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html ng-app>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Examples</title>
+		<script src="js/angular.js"></script>
+		
+	</head>
+	<body>
+//前提是没有引入jQuery文件
+<div id="box">1223</div>
+<script>
+	var oBox = document.getElementById('box');
+	angular.element(oBox).css('background','red');
+</script>
+//引入jQuery文件以后 angular.element = $
+<div id="box">1223</div>
+<script>
+	//两种方法结果一样
+	angular.element('#box').css('background','red');   
+	$('#box').css('background','red');
+</script>
+	</body>
+</html>

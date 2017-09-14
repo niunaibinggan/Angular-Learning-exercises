@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Examples</title>
+		<script src="jquery-3.1.1.js"></script>
+		<script src="angular.js"></script>
+<script>
+var m1 = angular.module('myApp',[]);
+m1.controller('A',['$scope','$location',function($scope,$location){
+	// 输出的地址是地址栏中编码后的地址，当地址栏中的地址发生改变时，控制台会得到一个编码后的网址
+	//var a = $location.absUrl(); 
+	//$location.hash('hello');    // 设置哈希值
+	//var a = $location.hash();   // 输出的就是设置的哈希值
+	//$location.path('aaa');      // 设置路径，后退可以查看到以前的路径，有利于做路由操作，可以查看历史记录
+	//$location.path('aaa').replace(); // 清除之前的路径，后退查看不到以前的路径（一般用不上） 
+	//var a = $location.path();
+	//$location.search({'age':10}); // 在地址栏中设置信息
+	//var a = $location.search();   // 输出的就是年龄信息
+
+	var a = $location.port();
+	console.log(a)	;
+}])
+</script>
+	</head>
+<body ng-controller="A">
+</body>
+</html>

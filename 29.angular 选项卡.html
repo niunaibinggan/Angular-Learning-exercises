@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Examples</title>
+		<script src="jquery-3.1.1.js"></script>
+		<script src="angular.js"></script>
+<style>
+	input.active{background: red;}
+	.box div{width:400px;height: 200px;border:1px solid #000;
+		display: none;margin-top:20px;}
+	.box div.show{display: block;
+	}
+</style>
+	<script>
+	var m1 = angular.module('myApp',[]);
+m1.directive('myHello',function(){
+	return {
+		restrict : 'E',
+		replace : true,
+		scope : {   
+			// {} 隔离作用域，不会向外部找数据  
+			// scope ： true 是独立作用域，不受到其他影响
+			myId : '@',     // @绑定策略,就是绑定普通的字符串
+			myData : '=',   // =绑定父级下的变量
+			myFn : '&'      // &绑定父级下的函数
+		},
+		controller : ['$scope',function($scope){
+			// 针对自定义属性而设置的，里面的数据共享
+			$scope.name = "hello";   
+		}],
+		template : '<div class="box" id={{myId}}">\
+						<input ng-repeat = "data in myData" type="button" value="{{  data.title}}" ng-class="{active:$first}">\
+						<div ng-repeat = "data in myData" ng-class="{show:$first}">{{data.content}}</div>\
+					</div>',
+		link :function(scope,element,attr){
+			console.log(scope);     // 找到scope下的属性
+			console.log(element);   // 找到两个div
+			console.log(attr.myId);   // 每个div下的属性 attr.myId就代表打印的是每个div的id
+			element.delegate('input','click',function(){   // delegate 事件委托
+				$(this).attr('class','active').siblings('input').attr('class','');
+				$(this).siblings('div').eq($(this).index()).attr('class','show').siblings('div').attr('class','');
+			})
+		}
+	}	
+});
+	m1.controller('A',['$scope',function($scope){
+		$scope.name = 'hi';
+		$scope.dataList1 = [
+			{ title:'导航一' , content : '我是导航一'},
+			{ title:'导航二' , content : '我是导航二'},
+			{ title:'导航三' , content : '我是导航三'}
+		];
+		$scope.dataList2 = [
+			{ title:'二组 导航一' , content : '我是二组导航一'},
+			{ title:'二组 导航二' , content : '我是二组导航二'},
+		];	
+	}])
+	</script>
+	</head>
+	<body ng-controller="A">
+		<my-hello my-id = "box1" my-data="dataList1"></my-hello>
+		<my-hello my-id = "box2" my-data="dataList2"></my-hello>
+	</body>
+</html>

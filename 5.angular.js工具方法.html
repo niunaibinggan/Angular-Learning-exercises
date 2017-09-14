@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html ng-app>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Examples</title>
+		<script src="js/angular.js"></script>
+		<script>
+			/*function show(a,b){
+				alert(a);
+				alert(b);
+				alert(this)
+			}*/
+			//下面的三种传参的形式，最后的结果弹出的都是 ：10,100，hello
+			//angular.bind('hello',show,10,100)(); 
+			//angular.bind('hello',show)(10,100);
+			/*angular.bind('hello',function(a,b){
+				alert(a);
+				alert(b);
+				alert(this)
+			},10)(100);*/
+
+			//angular.copy
+			// var a = {name : '小明'}
+			// var b = {age : 20}
+			// //把a的全部内容copy给c
+			// var c = angular.copy(a);
+			// console.log(c);    //显示object{name : '小明'}
+			// //把a的全部内容copy给c和b
+			// var c2 = angular.copy(a,b);
+			// console.log(c2);   //显示object{name : '小明'}
+			// console.log(b);    //显示object{name : '小明'}
+
+
+
+			//angular.extend
+			var a = {name : '小明'}
+			var b = {age : 20}
+			//c会继承a中的所有内容
+			var c = angular.extend(a);
+			console.log(c);    //显示object{name : '小明'}
+			//c会继承a和b中的所有内容
+			var c2 = angular.extend(a,b);
+			console.log(c2);   //显示Object {name: "小明", age: 20}
+			console.log(b);    //显示object{name : '小明'}
+		</script>
+	</head>
+	<body>
+		
+	</body>
+</html>

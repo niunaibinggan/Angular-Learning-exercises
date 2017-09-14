@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html ng-app = "myApp">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Examples</title>
+		<script src="js/angular.js"></script>
+		<style>
+			.active{background: red;}
+			.active2{color: #fff;}
+		</style>
+	<script>
+var m1 = angular.module('myApp',[]);
+m1.controller('A',['$scope',fn]);
+function fn($scope){
+
+}
+fn.prototype.text = 'hello';
+fn.prototype.show = function(){
+	return 'show';
+}
+	</script>
+	</head>
+	<body>
+	<div ng-controller = 'A as b'>
+		<p>{{b.text}}</p>
+		<p>{{b.show()}}</p>
+	</div>
+	</body>
+</html>

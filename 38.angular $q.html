@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Examples</title>
+		<style>
+		</style>
+		<script src="jquery-3.1.1.js"></script>
+		<script src="angular.js"></script>
+<script>
+var m1 = angular.module('myApp',[]);
+m1.controller('A',['$scope','$q',function($scope,$q){
+	var a = $q.defer()  // 创建了一个延迟对象
+	function show(){
+		setTimeout(function(){
+			a.reject();
+		},2000)
+		return a.promise;
+	}
+	show().then(function(){
+		alert('success');
+	},function(){
+		alert('fail');
+	})	
+}])
+</script>
+	</head>
+<body>
+<div ng-controller="A" class="box">
+	
+</div>	
+</body>
+</html>

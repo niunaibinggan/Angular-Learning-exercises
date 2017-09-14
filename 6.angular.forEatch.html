@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html ng-app>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Examples</title>
+		<script src="js/angular.js"></script>
+		<script>
+			//针对是数组时，两个参数就可以了
+			var obj = ['a','b','c'];
+			angular.forEach(obj,function(value,i){
+				console.log(value);    // a b c  第一个参数代表数组中的每一项
+				console.log(i);        // 0 1 2  第二个参数代表位置
+			});
+
+			//针对是json时，想要返回数组，就需要有三个参数
+			var obj2 = {'name':'小明','age':'20'}
+			var result = [];
+			angular.forEach(obj2,function(value,key){
+				console.log(value);    //小明  20
+				console.log(key);      //name  age
+				this.push(key + ':' + value)  //this指的就是result
+			},result)
+			console.log(result)
+		</script>
+	</head>
+	<body>
+		
+	</body>
+</html>
